@@ -180,7 +180,7 @@ class ComplicatedImageDemo extends StatelessWidget {
               viewportFraction: 0.8,
               height: deviceSize.height * 0.45,
               indicatorMargin: 12.0,
-              enableInfiniteScroll: false,
+              enableInfiniteScroll: true,
               slideIndicator: const CircularSlideIndicator(),
             ),
             items: sliders,
