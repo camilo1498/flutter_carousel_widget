@@ -169,23 +169,32 @@ class ComplicatedImageDemo extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
-          constraints: BoxConstraints(
-            maxHeight: MediaQuery.of(context).size.width,
-          ),
-          child: FlutterCarousel(
-            options: CarouselOptions(
-              autoPlay: false,
-              autoPlayInterval: const Duration(seconds: 5),
-              disableCenter: true,
-              viewportFraction: 0.8,
-              height: deviceSize.height * 0.45,
-              indicatorMargin: 12.0,
-              enableInfiniteScroll: true,
-              slideIndicator: const CircularSlideIndicator(),
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.width,
             ),
-            items: sliders,
-          ),
-        ),
+            child: FlutterCarousel(
+              options: CarouselOptions(
+                height: 158,
+                autoPlay: false,
+                indicatorMargin: 0,
+                viewportFraction: 1,
+                floatingIndicator: false,
+                enableInfiniteScroll: true,
+                showIndicator: true,
+                slideIndicator: CircularWaveSlideIndicator(
+                    currentIndicatorColor: Colors.black,
+                    indicatorBackgroundColor: Colors.red),
+                autoPlayAnimationDuration: const Duration(seconds: 1),
+              ),
+              items: [
+                Container(
+                  color: Colors.red,
+                ),
+                Container(
+                  color: Colors.blue,
+                ),
+              ],
+            )),
       ),
     );
   }

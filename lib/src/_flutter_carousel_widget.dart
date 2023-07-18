@@ -240,34 +240,42 @@ class FlutterCarouselState extends State<FlutterCarousel>
       );
     }
 
-    return RawGestureDetector(
-      gestures: {
-        _MultipleGestureRecognizer:
-            GestureRecognizerFactoryWithHandlers<_MultipleGestureRecognizer>(
-                _MultipleGestureRecognizer.new,
+    return Column(
+      children: [
+        RawGestureDetector(
+          gestures: {
+            _MultipleGestureRecognizer: GestureRecognizerFactoryWithHandlers<
+                    _MultipleGestureRecognizer>(_MultipleGestureRecognizer.new,
                 (_MultipleGestureRecognizer instance) {
-          instance.onStart = (_) {
-            _onStart();
-          };
-          instance.onDown = (_) {
-            _onPanDown();
-          };
-          instance.onEnd = (_) {
-            _onPanUp();
-          };
-          instance.onCancel = _onPanUp;
-        }),
-      },
-      child: NotificationListener(
-        onNotification: (dynamic notification) {
-          if (widget.options.onScrolled != null &&
-              notification is ScrollUpdateNotification) {
-            widget.options.onScrolled!(_carouselState!.pageController!.page);
-          }
-          return false;
-        },
-        child: wrapper,
-      ),
+              instance.onStart = (_) {
+                _onStart();
+              };
+              instance.onDown = (_) {
+                _onPanDown();
+              };
+              instance.onEnd = (_) {
+                _onPanUp();
+              };
+              instance.onCancel = _onPanUp;
+            }),
+          },
+          child: NotificationListener(
+            onNotification: (dynamic notification) {
+              if (widget.options.onScrolled != null &&
+                  notification is ScrollUpdateNotification) {
+                widget
+                    .options.onScrolled!(_carouselState!.pageController!.page);
+              }
+              return false;
+            },
+            child: wrapper,
+          ),
+        ),
+        if (!widget.options.floatingIndicator) ...[
+          SizedBox(height: widget.options.indicatorMargin),
+          _buildSlideIndicator(),
+        ],
+      ],
     );
   }
 
@@ -442,22 +450,7 @@ class FlutterCarouselState extends State<FlutterCarousel>
 
       /// If [floatingIndicator] option is [false]
       return _getGestureWrapper(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              flex: 1,
-              child: _buildCarouselWidget(context),
-            ),
-            SizedBox(height: widget.options.indicatorMargin),
-            Expanded(
-              flex: 0,
-              child: _buildSlideIndicator(),
-            ),
-          ],
-        ),
+        child: _buildCarouselWidget(context),
       );
     }
 

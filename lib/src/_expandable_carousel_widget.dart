@@ -487,11 +487,8 @@ class ExpandableCarouselState extends State<ExpandableCarousel>
               flex: 1,
               child: _buildCarouselWidget(context),
             ),
-            const SizedBox(height: 8.0),
-            Expanded(
-              flex: 0,
-              child: _buildSlideIndicator(),
-            ),
+            const SizedBox(height: 12),
+            _buildSlideIndicator(),
           ],
         ),
       );
